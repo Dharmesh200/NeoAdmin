@@ -7,7 +7,7 @@ exports.register = async (req, res) => {
         let { email, user_name, password, confirmPassword, role } = req.body;
         let regData = { email, user_name, password, confirmPassword, role };
         let data = await UserAuthSchema.create(regData);
-        //   res.status(201).json({ message: "successfully registered", data });
+          res.status(201).json({ message: "successfully registered", data });
         sendTokenToClient(data, 201, res);
     } catch (error) {
         res.status(501).json({ message: "server error" });
@@ -51,7 +51,7 @@ function sendTokenToClient(data, statusCode, response) {
         .json({ message: "token stored", TOKEN });
 }
 
-exports.AuthorizingRoute = async (req, res, next) => {
+exports.AuthorizingRouteAdmin = async (req, res, next) => {
     let token;
     if (
         req.headers.authorization &&
